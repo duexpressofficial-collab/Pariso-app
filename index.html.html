@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JILOI PUST - Сертификати 300 сомонӣ</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --primary-color: #d4af37; /* Ранги тиллоӣ барои бренди премиалӣ */
+            --bg-color: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-color: #ffffff;
+            --text-muted: #aaaaaa;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+        .certificate-card {
+            background: linear-gradient(135deg, #262626 0%, #111111 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 1px solid var(--primary-color);
+            position: relative;
+        }
+        .cert-title {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        .cert-amount {
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+        .cert-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background: #222;
+            color: #fff;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: var(--primary-color);
+        }
+        .btn {
+            width: 100%;
+            background: var(--primary-color);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+            margin-top: 10px;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .success-message {
+            display: none;
+            color: #4cd137;
+            font-size: 15px;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">JILOI PUST</div>
+        <div class="subtitle">Laser & Aesthetic Studio • Душанбе</div>
+
+        <div class="certificate-card">
+            <div class="cert-title">Сертификати тақдимшуда</div>
+            <div class="cert-amount">300 сомонӣ</div>
+            <div class="cert-desc">Ба се қисми 100 сомонӣ барои хизматрасониҳои лазерӣ ва космелогӣ тақсим мешавад.</div>
+        </div>
+
+        <div id="form-container">
+            <div class="form-group">
+                <label for="phone">Рақами телефонатонро ворид кунед:</label>
+                <input type="tel" id="phone" placeholder="+992 900 00 00 00">
+            </div>
+            <button class="btn" onclick="activateCertificate()">Активировать 300с</button>
+        </div>
+
+        <div id="success" class="success-message">
+            ✨ Ташаккур! Сертификати шумо бомуваффақият фаъол шуд. Прайс ба боти шумо фиристода шуд!
+        </div>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand(); // Кушодани Mini App ба пуррагӣ дар экран
+
+        function activateCertificate() {
+            let phone = document.getElementById('phone').value;
+            if (phone.length < 9) {
+                alert('Луфтан рақами дурусти телефонатонро ворид кунед!');
+                return;
+            }
+
+            // Пӯшидани форма ва нишон додани паёми муваффақият
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+
+            // Ирсоли маълумот ба Telegram (агар лозим шавад)
+            setTimeout(() => {
+                tg.sendData(JSON.stringify({action: 'activate', phone: phone}));
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
